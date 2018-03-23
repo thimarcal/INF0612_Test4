@@ -37,3 +37,18 @@ cepagri1 <- cepagri$Horario < "2018-01-02" & cepagri$Horario$min == 0
 g4 <- ggplot(cepagri[cepagri1, ], aes(x=Horario$hour, y=Vento))
 g4 <- g4 + geom_point() + geom_smooth() + xlab("Hora")
 g4
+
+
+## 5 - Bônus
+# Há leituras faltando
+# A quantidade de leituras deveria ser 31*24*6 = 4464, mas só tem 4315
+# Dividindo os gráficos por dia, é possível ver que há uma quebra entre os dias 13 e 14
+t <- strftime(cepagri$Horario, format="%H:%M:%S")
+g5 <- ggplot(cepagri, aes(x=t))
+g5 <- g5 + geom_point(aes(y=Temperatura)) + facet_wrap(~ Horario$mday)
+g5
+
+# Plotando uma linha de todos os dias é possível ver como uma linha reta esse mesmo período
+g6 <- ggplot(cepagri, aes(x=Horario))
+g6 <- g6 + geom_line(aes(y=Temperatura))
+g6
