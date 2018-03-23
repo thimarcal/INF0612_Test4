@@ -29,8 +29,11 @@ g2
 ## 3 - Temperatura dos Ultimos Sete Dias do Mes
 cepagri7U <- cepagri$Horario >= dates[(length(dates)-6)]
 g3 <- ggplot(cepagri[cepagri7U, ], aes(x=Horario$mday, y=Temperatura, group=Horario$mday))
-g3 <- g3 + geom_boxplot()
+g3 <- g3 + geom_boxplot() + xlab("Dia")
 g3
 
 ## 4 - Ventos do Primeiro Dia do Mes
-
+cepagri1 <- cepagri$Horario < "2018-01-02" & cepagri$Horario$min == 0
+g4 <- ggplot(cepagri[cepagri1, ], aes(x=Horario$hour, y=Vento))
+g4 <- g4 + geom_point() + geom_smooth() + xlab("Hora")
+g4
