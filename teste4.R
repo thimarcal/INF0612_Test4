@@ -10,7 +10,6 @@ library(ggplot2)
 
 # Arrumar o formato das datas
 cepagri$Horario <- strptime(cepagri[,1], "%d/%m/%Y-%H:%M")
-dates <- unique(as.Date(cepagri$Horario))
 
 ## 1 - Umidade Relativa do Ar
 cepagri10 <- cepagri$Horario < "2018-01-11"
@@ -27,7 +26,7 @@ g2 <- ggplot(cepagri[cepagri2H, ], aes(x=Sensacao)) + geom_histogram(bins = 30)
 g2
 
 ## 3 - Temperatura dos Ultimos Sete Dias do Mes
-cepagri7U <- cepagri$Horario >= dates[(length(dates)-6)]
+cepagri7U <- cepagri$Horario >= "2018-01-25"
 g3 <- ggplot(cepagri[cepagri7U, ], aes(x=Horario$mday, y=Temperatura, group=Horario$mday))
 g3 <- g3 + geom_boxplot() + xlab("Dia")
 g3
