@@ -1,6 +1,7 @@
 ########################################
 # Teste 4 - INF-0612          
-# Nome(s): 
+# Nome(s): Roberto Bresil
+#          Thiago Gomes Marçal Pereira
 ########################################
 
 names <- c("Horario", "Temperatura", "Vento", "Umidade", "Sensacao")
@@ -32,9 +33,15 @@ g3 <- g3 + geom_boxplot() + xlab("Dia")
 g3
 
 ## 4 - Ventos do Primeiro Dia do Mes
-cepagri1 <- cepagri$Horario < "2018-01-02" & cepagri$Horario$min == 0
-g4 <- ggplot(cepagri[cepagri1, ], aes(x=Horario$hour, y=Vento))
-g4 <- g4 + geom_point() + geom_smooth() + xlab("Hora")
+cepagri1 <- cepagri$Horario < "2018-01-02"
+ventos <- vector(length=24)
+Hora <- c(0:23)
+for (i in 0:23) {
+ ventos[i+1] <- max(cepagri$Vento[cepagri1 & cepagri$Horario$hour == i])
+}
+dfventos <- data.frame("Vento"=ventos, "Hora"=Hora)
+g4 <- ggplot(dfventos, aes(x=dfventos$Hora, y=dfventos$Vento))
+g4 <- g4 + geom_point() + geom_smooth()
 g4
 
 
